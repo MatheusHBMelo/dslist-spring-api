@@ -2,13 +2,11 @@ package dev.matheushbmelo.dslist.controller;
 
 import dev.matheushbmelo.dslist.dtos.GameListDto;
 import dev.matheushbmelo.dslist.dtos.GameMinDto;
+import dev.matheushbmelo.dslist.dtos.ReplacementDTObody;
 import dev.matheushbmelo.dslist.services.GameListService;
 import dev.matheushbmelo.dslist.services.GameService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +30,8 @@ public class GameListController {
     public ResponseEntity<List<GameMinDto>> findByList(@PathVariable(value = "listId") Long listId) {
         return ResponseEntity.ok(gameService.findByList(listId));
     }
+
+    @PostMapping(value = "/{listId}/replacement")
+    public void move(@PathVariable Long listId, @RequestBody ReplacementDTObody body) {gameListService.move(listId, body.sourceIndex(), body.destinationIndex());}
 
 }
